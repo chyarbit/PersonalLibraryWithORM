@@ -12,46 +12,48 @@ class DB {
   }
 
   // create method called getAllBooks to make a query to the database
-  getAllBooks(firstName, lastName, title, coverPhoto, authors, books){
-    const queryString = "SELECT ??, SELECT ??, SELECT ??, SELECT ?? FROM ?? INNER JOIN ?? ON ??.?? = ??.??";
-    return this.connection.query(queryString, [firstName, lastName, title, coverPhoto, authors, books, authors,id, books, authorId])
+  getAllBooks(firstName, lastName, title, coverPhoto, authors, books, id, authorId){
+    const queryString = "SELECT ?? FROM ?? INNER JOIN ?? ON ??.?? = ??.??";
+    return this.connection.query(queryString, [firstName, lastName, title, coverPhoto.join(",")], authors, books, authors, id, books, authorId)
   
+  }
+  //return this.connection.query('SELECT firstName, lastName, title, coverPhoto FROM authors INNER JOIN books ON authors.id = books.authorId')
 
-  // create method called getOneBook to make a query to the database
-  // getOneBook(bookTitle){
+  //create method called getOneBook to make a query to the database
+  getOneBook(bookTitle){
 
-  //   return this.connection.query('SELECT books.id, firstName, lastName, title, coverPhoto FROM authors INNER JOIN books ON authors.id = books.authorId WHERE books.title=?', [bookTitle])
-  //}
+    return this.connection.query('SELECT books.id, firstName, lastName, title, coverPhoto FROM authors INNER JOIN books ON authors.id = books.authorId WHERE books.title=?', [bookTitle])
+  }
 
   // create method called getBookNotes to make a query to the database
-  // getBookNotes(bookTitle){
+  getBookNotes(bookTitle){
  
-  //   return this.connection.query('SELECT notes.id, note FROM notes INNER JOIN books ON books.id = notes.bookId WHERE books.title=?', [bookTitle])
-  // }
+    return this.connection.query('SELECT notes.id, note FROM notes INNER JOIN books ON books.id = notes.bookId WHERE books.title=?', [bookTitle])
+  }
 
   // create method called addBooks to make a query to the database
-  // addBook(title, coverPhoto, authorId){
-  //   const queryString = "INSERT INTO books SET ?"
-  //   return this.connection.query('INSERT INTO books SET ?', 
-  //    {
-  //      title,
-  //      authorId,
-  //      coverPhoto
-  //    })
-  // }
+  addBook(title, coverPhoto, authorId){
+    const queryString = "INSERT INTO books SET ?"
+    return this.connection.query('INSERT INTO books SET ?', 
+     {
+       title,
+       authorId,
+       coverPhoto
+     })
+  }
 
   // create method called addBooks to make a query to the database
-  // addBookNote(note, bookId){
-  //   return this.connection.query('INSERT INTO notes SET ?', 
-  //    {
-  //      note,
-  //      bookId
-  //    })
-  // }
+  addBookNote(note, bookId){
+    return this.connection.query('INSERT INTO notes SET ?', 
+     {
+       note,
+       bookId
+     })
+  }
 
-//   deleteNote(noteId){
-//    return this.connection.query('DELETE FROM notes WHERE id=?', 
-//      [noteId])
+  deleteNote(noteId){
+   return this.connection.query('DELETE FROM notes WHERE id=?', 
+     [noteId])
 }
 }
 
