@@ -4,12 +4,12 @@ const orm = require("../config/orm.js");
 // declare a class called Book
 class Note{
     getBookNotes(colsToSelect, tableOne, tableTwo, tableOneCol, tableTwoCol){
-        return orm.selectAll("notes", [...colsToSelect, tableOne, tableTwo, tableOne, tableOneCol, tableTwo, tableTwoCol])
+        return orm.getBookNotes("notes", [...colsToSelect, tableOne, tableTwo, tableOne, tableOneCol, tableTwo, tableTwoCol])
     }
-    getOne(columns,values){
-        return orm.create("notes", columns, values)
+    addBookNote(columns,values){
+        return orm.addBookNote("notes", columns,values)
     }
-    remove(columns, condition){
+    delete(columns, condition){
         return orm.delete('cats', columns, condition)
       }
 };

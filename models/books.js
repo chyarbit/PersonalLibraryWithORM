@@ -3,11 +3,14 @@ const orm = require("../config/orm.js");
 
 // declare a class called Book
 class Book{
-    getAllBooks(colsToSelect, tableOne, tableTwo, tableOneCol, tableTwoCol){
-        return orm.selectAll("books",[...colsToSelect, tableOne, tableTwo, tableOne, tableOneCol, tableTwo, tableTwoCol])
+    getAllBooks(){
+        return orm.selectAll("books")
     }
-    getOneBook(tableInput, colToSearch, valOfCol){
-        return orm.create("books", [tableInput, colToSearch, valOfCol])
+    getOneBook(colToSearch, valOfCol){
+        return orm.getOneBook("books", [title, coverPhoto, authorId], valOfCol)
+    }
+    addBook(columns,values){
+        return orm.addBook("books",columns,values)
     }
 };
 
